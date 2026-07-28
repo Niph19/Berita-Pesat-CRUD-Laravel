@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\dataBerita;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class dashboardController extends Controller
      */
     public function create()
     {
-        return view('berita.form');
+        
     }
 
     /**
@@ -46,7 +47,8 @@ class dashboardController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = dataBerita::findOrFail($id);
+        return view('berita.show', compact('data'));
     }
 
     /**
@@ -54,7 +56,8 @@ class dashboardController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = dataBerita::findOrFail($id);
+        return view('berita.edit', compact('data'));
     }
 
     /**
@@ -62,7 +65,16 @@ class dashboardController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dataUpdate = dataBerita::findOrFail($id);
+        $validasiData = $request->validate([
+            'judulBerita' => 'required',
+            'gambarBerita' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'isiBerita' => 'required',
+            'author' => 'required',
+            'tanggalTerbit' => 'required|date',
+        ]);
+        $dataUpdate->update($validasiData);
+        return redirect('berita')->with('success', 'Berita berhasil diubah');
     }
 
     /**
@@ -70,6 +82,8 @@ class dashboardController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleteData = dataBerita::class($id);
+        $deleteData->delete();
+        return redirect('/')->with('success', 'Berita berhasil dihapus');
     }
 }

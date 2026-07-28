@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Berita Pesat – Home </title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Berita Pesat – Home </title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
 
 <body>
     @yield('content')
@@ -50,12 +50,12 @@
                     <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal"
                         class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         type="button">
-                        Create product
+                        Tambah Berita
                     </button>
                 </div>
             </div>
 
-            
+
 
             <div id="defaultModal" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
@@ -81,8 +81,8 @@
 
 
 
-                        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+                        <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="d-flex gap-4 mb-4">
 
                                 <div>
@@ -151,7 +151,8 @@
                                     </label>
 
                                     <div class="relative">
-                                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <div
+                                            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                             <svg class="w-4 h-4 text-gray-400" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round"
@@ -159,7 +160,8 @@
                                                     d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
                                             </svg>
                                         </div>
-                                        <input datepicker datepicker-orientation="top" name="tanggalTerbit" type="text" datepicker-format="yyyy-mm-dd"
+                                        <input datepicker datepicker-orientation="top" name="tanggalTerbit" type="text"
+                                            datepicker-format="yyyy-mm-dd"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-9 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="Pilih tanggal terbit">
                                     </div>
@@ -196,7 +198,7 @@
                                 src="{{ asset('storage/' . $berita->gambarBerita) }}" alt="{{ $berita->judulBerita }}" --}}
                                 alt="Foto Berita">
                         </div>
-                        <div class="flex flex-col justify-between p-6 gap-4">
+                        <div class="flex flex-col justify-between p-6 gap-4 w-full">
                             <h3
                                 class="text-xl font-bold text-gray-900 dark:text-white leading-snug hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
                                 {{ $berita->judulBerita }}
@@ -204,12 +206,18 @@
                             <p class="text-base mt-3 mb-2 font-light text-gray-500 dark:text-gray-400">
                                 {{ $berita->isiBerita }}
                             </p>
-                            <div class="flex items-center gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
+                            <div class="flex justify-between items-center gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
                                 <div>
                                     <p class="text-xs font-semibold text-gray-700 dark:text-gray-300">Penulis:
                                         {{ $berita->author }}
                                     </p>
                                     <p class="text-xs text-gray-400 dark:text-gray-500">{{ $berita->tanggalTerbit }}</p>
+                                </div>
+                                <div>
+                                    <a href="{{ route('berita.edit', $berita->id) }}"
+                                        class="inline-flex items-center justify-center px-2.5 py-1 mr-3 text-sm font-medium text-center text-white rounded-md bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                                        Edit
+                                    </a>
                                 </div>
                             </div>
                         </div>
